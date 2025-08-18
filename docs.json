@@ -7,8 +7,22 @@
     "light": "#8B5CF6",
     "dark": "#4F46E5"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/favicon-logo.svg",
   "navigation": {
+    "anchors": [
+      {
+        "anchor": "Support",
+        "href": "https://altmagic.pro/support"
+      },
+      {
+        "anchor": "Dashboard",
+        "href": "https://app.altmagic.pro"
+      },
+      {
+        "anchor": "Blog",
+        "href": "https://altmagic.pro/blogs"
+      }
+    ],
     "tabs": [
       {
         "tab": "Documentation",
@@ -17,14 +31,6 @@
             "group": "Getting Started",
             "pages": [
               "index"
-            ]
-          },
-          {
-            "group": "General",
-            "pages": [
-              "support",
-              "dashboard",
-              "blog"
             ]
           }
         ]
@@ -41,8 +47,9 @@
           },
           {
             "group": "Endpoints",
+            "openapi": "/api-reference/openapi.json",
             "pages": [
-              "api-reference/alt-text-generation"
+              "POST /api-alt-text"
             ]
           }
         ]
