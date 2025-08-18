@@ -9,20 +9,30 @@
   },
   "favicon": "/favicon-logo.svg",
   "navigation": {
-    "anchors": [
-      {
-        "anchor": "Support",
-        "href": "https://altmagic.pro/support"
-      },
-      {
-        "anchor": "Dashboard",
-        "href": "https://app.altmagic.pro"
-      },
-      {
-        "anchor": "Blog",
-        "href": "https://altmagic.pro/blogs"
-      }
-    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Community",
+          "icon": "facebook",
+          "href": "https://www.facebook.com/groups/1695959361003779"
+        },
+        {
+          "anchor": "Support",
+          "icon": "headset",
+          "href": "https://altmagic.pro/support"
+        },
+        {
+          "anchor": "Dashboard",
+          "icon": "house",
+          "href": "https://app.altmagic.pro"
+        },
+        {
+          "anchor": "Blog",
+          "icon": "newspaper",
+          "href": "https://altmagic.pro/blogs"
+        }
+      ]
+    },
     "tabs": [
       {
         "tab": "Documentation",
@@ -30,7 +40,7 @@
           {
             "group": "Getting Started",
             "pages": [
-              "index"
+              "about"
             ]
           }
         ]
@@ -53,6 +63,13 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Changelog",
+        "pages": [
+          "changelog",
+          "upcoming"
+        ]
       }
     ]
   },
@@ -64,7 +81,7 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:support@altmagic.pro"
+        "href": "mailto:advait@altmagic.pro"
       }
     ],
     "primary": {
