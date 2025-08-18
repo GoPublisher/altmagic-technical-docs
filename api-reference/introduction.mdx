@@ -1,33 +1,112 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: 'API Introduction'
+description: 'Get started with the Alt Magic API for generating AI-powered alt text'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+# API Introduction
 
-## Welcome
+Use the Alt Magic REST API to programmatically generate descriptive, SEO-optimized alt text for images using advanced AI models with automatic fallback capabilities.
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+## Introduction
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+The Alt Magic API allows you to make a `POST` request to generate alt text for any image. You can configure parameters in the API request body or provide additional context for better results. The API automatically falls back from Gemini to OpenAI if needed, ensuring maximum reliability.
+
+## How It Works
+
+1. **Create an API key** in your [Alt Magic dashboard](https://app.altmagic.pro)
+2. **Share your image** with a publicly accessible URL
+3. **Make a POST request** to your personal Alt Magic endpoint
+4. **Track the response** and get your generated alt text
+
+## Setting Up Parameters
+
+### Required Parameters
+- `image_url` - Publicly accessible URL of the image
+- `user_id` - Your unique identifier (email address)
+
+### Optional Parameters
+- `blog_title` - Context for better alt text generation
+- `seo_keywords` - Keywords for SEO optimization
+- `language_code` - Language for the generated text
+
+## Getting Your API Endpoint
+
+Your API endpoint is automatically assigned when you create your account:
+
+**Base URL**: `https://api.altmagic.pro`
+
+**Alt Text Generation**: `POST /api-alt-text`
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+The API supports two authentication methods:
+
+- **API Key**: Include `x-api-key` header for server-to-server integrations
+- **Session**: Use existing user sessions for web applications
+
+[Learn more about authentication →](/api-reference/authentication)
+
+## Rate Limits
+
+Rate limits are applied per user to ensure fair usage:
+
+- **Standard Plan**: 100 requests per minute
+- **Pro Plan**: 500 requests per minute
+- **Enterprise Plan**: Custom limits
+
+[View detailed rate limit information →](/api-reference/rate-limits)
+
+## Error Handling
+
+The API returns standard HTTP status codes with detailed error messages:
+
+- **200**: Success
+- **400**: Bad Request (validation errors)
+- **401**: Unauthorized (authentication required)
+- **403**: Forbidden (insufficient credits)
+- **429**: Too Many Requests (rate limit exceeded)
+- **500**: Internal Server Error
+
+[Learn about error handling →](/api-reference/error-handling)
+
+## Job Status Tracking
+
+Each API request returns immediate results with your generated alt text. No job tracking is required - you get your results instantly.
+
+## Example Response
 
 ```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+{
+  "altText": "A close-up photo of a red apple on a wooden table with natural lighting",
+  "CreditsAvailable": 49,
+  "plan_type": "pro"
+}
 ```
+
+## Job States
+
+Since Alt Magic API provides instant results, there are no job states to track. Your alt text is generated and returned immediately.
+
+## Complete API Example
+
+```bash
+curl -X POST "https://api.altmagic.pro/api-alt-text" \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -d '{
+    "image_url": "https://example.com/image.jpg",
+    "blog_title": "Healthy Eating Guide",
+    "seo_keywords": "healthy, food, nutrition, apples",
+    "language_code": "en",
+    "user_id": "user@example.com"
+  }'
+```
+
+## Next Steps
+
+1. **[Generate your API key](/api-reference/api-key-generation)** - Step-by-step guide
+2. **[Read the endpoint documentation](/api-reference/alt-text-generation)** for detailed parameters
+3. **[Test the API](https://playground.altmagic.pro)** in our interactive playground
+4. **[Implement error handling](/api-reference/error-handling)** for production use
+
+Ready to get started? [Generate your first API key →](/api-reference/api-key-generation)

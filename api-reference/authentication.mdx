@@ -1,0 +1,289 @@
+---
+title: 'Authentication'
+description: 'Learn how to authenticate with the Alt Magic API using API keys or session tokens'
+---
+
+# Authentication
+
+The Alt Magic API supports two authentication methods: API keys and session-based authentication. Choose the method that best fits your integration needs.
+
+## Authentication Methods
+
+### 1. API Key Authentication
+
+The most common method for server-to-server integrations and applications.
+
+#### Header Parameter
+
+Include your API key in the `x-api-key` header with every request:
+
+```http
+x-api-key: YOUR_API_KEY_HERE
+```
+
+#### Example Request
+
+```bash
+curl -X POST "https://api.altmagic.pro/api-alt-text" \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: ak_live_1234567890abcdef" \
+  -d '{
+    "image_url": "https://example.com/image.jpg",
+    "user_id": "user@example.com"
+  }'
+```
+
+### 2. Session Authentication
+
+For web applications where users are already logged in.
+
+#### How It Works
+
+1. User logs into your web application
+2. Session cookie/token is automatically sent with requests
+3. No additional headers required
+
+#### Example Request
+
+```javascript
+// Session is automatically included in browser requests
+const response = await fetch('https://api.altmagic.pro/api-alt-text', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  credentials: 'include', // Include session cookies
+  body: JSON.stringify({
+    image_url: 'https://example.com/image.jpg',
+    user_id: 'user@example.com'
+  })
+});
+```
+
+## Getting Your API Key
+
+### 1. Access the Dashboard
+
+1. Log into your [Alt Magic account](https://app.altmagic.pro)
+2. Navigate to **API Keys** section
+3. Click **Create New API Key**
+
+### 2. Generate API Key
+
+1. Choose a descriptive name for your key
+2. Select the appropriate permissions
+3. Click **Generate Key**
+4. **Copy and save your key immediately** - it won't be shown again
+
+### 3. Key Permissions
+
+| Permission | Description |
+|------------|-------------|
+| **Read** | View account information and usage |
+| **Write** | Generate alt text and consume credits |
+| **Admin** | Full access including key management |
+
+## Step-by-Step API Key Generation
+
+### Step 1: Access Your Dashboard
+
+1. **Visit** [app.altmagic.pro](https://app.altmagic.pro)
+2. **Sign in** to your account (or create one if you don't have it)
+3. **Navigate** to the main dashboard
+
+### Step 2: Find API Keys Section
+
+1. **Look for** "API Keys" or "Developer" in the left sidebar
+2. **Click** on "API Keys" to access the API key management page
+3. **You'll see** a list of your existing API keys (if any)
+
+### Step 3: Create New API Key
+
+1. **Click** the "Create New API Key" or "+" button
+2. **Enter** a descriptive name for your key (e.g., "Production App", "Testing Environment")
+3. **Select** the appropriate permissions:
+   - **Read**: For viewing account info and usage
+   - **Write**: For generating alt text (most common)
+   - **Admin**: For full access (use sparingly)
+4. **Click** "Generate Key" or "Create"
+
+### Step 4: Copy and Secure Your Key
+
+1. **Copy** the generated API key immediately
+2. **Store** it securely (never in public repositories)
+3. **Note**: The key will only be shown once - copy it now!
+
+### Step 5: Test Your API Key
+
+Test your new API key with a simple request:
+
+```bash
+curl -X GET "https://api.altmagic.pro/api/status" \
+  -H "x-api-key: YOUR_NEW_API_KEY"
+```
+
+**Expected Response:**
+```json
+{
+  "status": "authenticated",
+  "user_id": "your-email@example.com",
+  "plan_type": "starter",
+  "credits_remaining": 100
+}
+```
+
+## API Key Management
+
+### Viewing Your Keys
+
+- **Dashboard**: See all your API keys with creation dates and last used
+- **Permissions**: View what each key can access
+- **Usage**: Monitor API calls and credit consumption per key
+
+### Revoking Keys
+
+1. **Navigate** to the API Keys section
+2. **Find** the key you want to revoke
+3. **Click** the "Revoke" or "Delete" button
+4. **Confirm** the action
+
+**⚠️ Warning**: Revoking a key immediately invalidates it. Any applications using that key will stop working.
+
+### Key Rotation
+
+**Best Practice**: Rotate your API keys regularly for security:
+
+1. **Generate** a new API key
+2. **Update** your applications with the new key
+3. **Test** that everything works
+4. **Revoke** the old key
+
+### Key Naming Convention
+
+Use descriptive names to easily identify your keys:
+
+- `production-app-2024`
+- `testing-environment`
+- `mobile-app-v2`
+- `webhook-service`
+- `batch-processor`
+
+## Security Best Practices
+
+### API Key Security
+
+- **Never expose your API key** in client-side code or public repositories
+- **Use environment variables** to store API keys securely
+- **Rotate keys regularly** - generate new keys and revoke old ones
+- **Monitor usage** for any suspicious activity
+
+### Example: Environment Variables
+
+```bash
+# .env file
+ALT_MAGIC_API_KEY=ak_live_your_key_here
+```
+
+```javascript
+// JavaScript
+const apiKey = process.env.ALT_MAGIC_API_KEY;
+
+const response = await fetch('https://api.altmagic.pro/api-alt-text', {
+  headers: {
+    'x-api-key': apiKey,
+    'Content-Type': 'application/json'
+  },
+  // ... rest of request
+});
+```
+
+```python
+# Python
+import os
+import requests
+
+api_key = os.getenv('ALT_MAGIC_API_KEY')
+
+headers = {
+    'x-api-key': api_key,
+    'Content-Type': 'application/json'
+}
+```
+
+## Error Responses
+
+### 401 Unauthorized
+
+```json
+{
+  "error": "Invalid or missing API key",
+  "message": "Please provide a valid API key in the x-api-key header"
+}
+```
+
+### 403 Forbidden
+
+```json
+{
+  "error": "Insufficient permissions",
+  "message": "Your API key doesn't have permission to access this endpoint"
+}
+```
+
+### 429 Too Many Requests
+
+```json
+{
+  "error": "Rate limit exceeded",
+  "message": "Too many requests from this API key, please try again later"
+}
+```
+
+## Rate Limiting
+
+API keys are subject to rate limiting:
+
+- **Standard Plan**: 100 requests per minute
+- **Pro Plan**: 500 requests per minute
+- **Enterprise Plan**: Custom limits
+
+Rate limits are applied per API key, not per user account.
+
+## Testing Authentication
+
+### Test Your API Key
+
+```bash
+curl -X GET "https://api.altmagic.pro/api/status" \
+  -H "x-api-key: YOUR_API_KEY"
+```
+
+### Expected Response
+
+```json
+{
+  "status": "authenticated",
+  "user_id": "user@example.com",
+  "plan_type": "pro",
+  "credits_remaining": 150
+}
+```
+
+## Troubleshooting
+
+### Common Issues
+
+| Issue | Solution |
+|-------|----------|
+| **401 Unauthorized** | Check if API key is correct and included in header |
+| **403 Forbidden** | Verify your API key has the required permissions |
+| **429 Rate Limited** | Implement exponential backoff and respect rate limits |
+| **Key Not Working** | Ensure the key hasn't been revoked or expired |
+
+### Support
+
+If you're experiencing authentication issues:
+
+1. **Check your API key** in the dashboard
+2. **Verify permissions** for the endpoint you're accessing
+3. **Contact support** at support@altmagic.pro with your key ID
