@@ -1,13 +1,13 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Alt Magic API",
+  "name": "Alt Magic",
   "colors": {
-    "primary": "#6366F1",
-    "light": "#8B5CF6",
-    "dark": "#4F46E5"
+    "primary": "#f66e3c",
+    "light": "#f66e3c",
+    "dark": "#f66e3c"
   },
-  "favicon": "/favicon-logo.svg",
+  "favicon": "/favicon.svg",
   "navigation": {
     "global": {
       "anchors": [
