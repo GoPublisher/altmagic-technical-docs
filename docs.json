@@ -60,7 +60,8 @@
             "group": "Endpoints",
             "openapi": "/api-reference/openapi.json",
             "pages": [
-              "POST /api-alt-text"
+              "POST /v1/generate-alt-text-api",
+              "POST /v1/get-user-details-api"
             ]
           }
         ]

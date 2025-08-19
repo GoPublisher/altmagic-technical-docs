@@ -52,7 +52,9 @@ Your API endpoint is automatically assigned when you create your account:
 
 **Base URL**: `https://api.altmagic.pro`
 
-**Alt Text Generation**: `POST /api-alt-text`
+**Alt Text Generation**: `POST /v1/generate-alt-text-api` - Generate AI-powered alt text for images with automatic fallback from Gemini to OpenAI.
+
+**User Details**: `POST /v1/get-user-details-api` - Retrieve user account information including subscription plan and available credits.
 
 ## Authentication
 
@@ -103,7 +105,7 @@ Each API request returns immediate results with your generated alt text.
 ## Complete API Example
 
 ```bash
-curl -X POST "https://api.altmagic.pro/api-alt-text" \
+curl -X POST "https://api.altmagic.pro/v1/generate-alt-text-api" \
   -H "Content-Type: application/json" \
   -H "x-api-key: YOUR_API_KEY" \
   -d '{
