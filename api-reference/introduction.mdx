@@ -3,7 +3,6 @@ title: 'API Introduction'
 description: 'Get started with the Alt Magic API for generating AI-powered alt text'
 ---
 
-# API Introduction
 
 Use the Alt Magic REST API to programmatically generate descriptive, SEO-optimized alt text for images using advanced AI models with automatic fallback capabilities.
 
@@ -27,7 +26,25 @@ The Alt Magic API allows you to make a `POST` request to generate alt text for a
 ### Optional Parameters
 - `blog_title` - Context for better alt text generation
 - `seo_keywords` - Keywords for SEO optimization
-- `language_code` - Language for the generated text
+- `language_code` - Language for the generated text ([All supported languages →](/api-reference/language-support)). 
+
+## Language Support
+
+The Alt Magic API supports **200+ languages** for generating alt text. You can specify the desired language using the `language_code` parameter in your requests.
+
+**Popular Languages:**
+- **English** (`en`) - Default language (fallback)
+- **Spanish** (`es`) - Español
+- **French** (`fr`) - Français
+- **German** (`de`) - Deutsch
+- **Chinese** (`zh-CN`, `zh-TW`) - 中文
+- **Japanese** (`ja`) - 日本語
+- **Korean** (`ko`) - 한국어
+- **Arabic** (`ar`) - العربية
+- **Hindi** (`hi`) - हिन्दी
+- **Portuguese** (`pt`, `pt-BR`) - Português
+
+[View complete language list →](/api-reference/language-support)
 
 ## Getting Your API Endpoint
 
@@ -39,35 +56,37 @@ Your API endpoint is automatically assigned when you create your account:
 
 ## Authentication
 
-The API supports two authentication methods:
+The Alt Magic API uses API key authentication to ensure secure access. When making requests, you must include your unique API key in the `x-api-key` header. This key can be generated and managed from your Alt Magic dashboard. Keep your API key confidential and never expose it in client-side code or public repositories.
 
-- **API Key**: Include `x-api-key` header for server-to-server integrations
-- **Session**: Use existing user sessions for web applications
+**API Key**: Include the `x-api-key` header in your request for authentication (recommended for server-to-server integrations).
 
-[Learn more about authentication →](/api-reference/authentication)
+```http
+x-api-key: YOUR_API_KEY_HERE
+```
+
 
 ## Rate Limits
 
 Rate limits are applied per user to ensure fair usage:
 
-- **Standard Plan**: 100 requests per minute
-- **Pro Plan**: 500 requests per minute
-- **Enterprise Plan**: Custom limits
+- **Standard Rate Limit**: 100 requests per minute
 
-[View detailed rate limit information →](/api-reference/rate-limits)
+
 
 ## Error Handling
 
 The API returns standard HTTP status codes with detailed error messages:
 
-- **200**: Success
-- **400**: Bad Request (validation errors)
-- **401**: Unauthorized (authentication required)
-- **403**: Forbidden (insufficient credits)
-- **429**: Too Many Requests (rate limit exceeded)
-- **500**: Internal Server Error
+| Status Code | Meaning                                      | Description                                 |
+|-------------|----------------------------------------------|---------------------------------------------|
+| **200**     | Success                                      | Request was successful                      |
+| **400**     | Bad Request                                  | Validation errors in the request            |
+| **401**     | Unauthorized                                 | Authentication required                     |
+| **403**     | Forbidden                                    | Insufficient credits                        |
+| **429**     | Too Many Requests                            | Rate limit exceeded                         |
+| **500**     | Internal Server Error                        | An error occurred on the server             |
 
-[Learn about error handling →](/api-reference/error-handling)
+
 
 ## Example Response
 
@@ -101,6 +120,5 @@ curl -X POST "https://api.altmagic.pro/api-alt-text" \
 1. **[Generate your API key](/api-reference/api-key-generation)** - Step-by-step guide
 2. **[Read the endpoint documentation](/api-reference/alt-text-generation)** for detailed parameters
 3. **[Test the API](https://playground.altmagic.pro)** in our interactive playground
-4. **[Implement error handling](/api-reference/error-handling)** for production use
 
 Ready to get started? [Generate your first API key →](/api-reference/api-key-generation)

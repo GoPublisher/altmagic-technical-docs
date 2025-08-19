@@ -5,8 +5,6 @@ method: 'POST'
 endpoint: '/api-alt-text'
 ---
 
-# Alt Text Generation
-
 Generate descriptive alt text for images using our AI-powered service. This endpoint automatically falls back from Gemini API to OpenAI if needed, ensuring reliable alt text generation for your images.
 
 ## Endpoint
@@ -21,16 +19,15 @@ The Alt Text Generation API creates descriptive, SEO-optimized alt text for imag
 
 ## Authentication
 
-This endpoint requires authentication via one of these methods:
+This endpoint requires authentication via API key:
 
 - **API Key**: Include `x-api-key` header
-- **Session**: Authenticated user session
 
 ### Header Parameter
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `x-api-key` | string | Yes* | Your API key (*required if not using session auth) |
+| `x-api-key` | string | Yes | Your API key |
 
 ## Request Body
 
@@ -47,7 +44,7 @@ This endpoint requires authentication via one of these methods:
 |-----------|------|-------------|
 | `blog_title` | string | Blog or article title to provide additional context |
 | `seo_keywords` | string | Comma-separated keywords for SEO optimization |
-| `language_code` | string | Language code (e.g., "en", "fr", "es") for generated alt text |
+| `language_code` | string | Language code (e.g., "en", "fr", "es") for generated alt text ([View all supported languages →](/api-reference/language-support)). If not provided, defaults to English (`en`) |
 
 ### Example Request
 
@@ -60,6 +57,24 @@ This endpoint requires authentication via one of these methods:
   "user_id": "abcxyz@gmail.com"
 }
 ```
+
+## Language Support
+
+The Alt Magic API supports **200+ languages** for generating alt text. You can specify the desired language using the `language_code` parameter in your requests.
+
+**Popular Languages:**
+- **English** (`en`) - Default language (fallback when no language specified)
+- **Spanish** (`es`) - Español
+- **French** (`fr`) - Français
+- **German** (`de`) - Deutsch
+- **Chinese** (`zh-CN`, `zh-TW`) - 中文
+- **Japanese** (`ja`) - 日本語
+- **Korean** (`ko`) - 한국어
+- **Arabic** (`ar`) - العربية
+- **Hindi** (`hi`) - हिन्दी
+- **Portuguese** (`pt`, `pt-BR`) - Português
+
+[View complete language list →](/api-reference/language-support)
 
 ## Rate Limits
 

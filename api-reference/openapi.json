@@ -56,7 +56,7 @@
                   },
                   "language_code": {
                     "type": "string",
-                    "description": "Language code (e.g., 'en', 'fr', 'es') for generated alt text"
+                    "description": "Language code (e.g., 'en', 'fr', 'es') for generated alt text. If not provided, defaults to English ('en'). See [Language Support](/api-reference/language-support) page for complete list of supported languages."
                   }
                 }
               }
