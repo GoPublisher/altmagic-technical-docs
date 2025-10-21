@@ -44,13 +44,6 @@
             ]
           }
         ]
-      },
-      {
-        "tab": "Changelog",
-        "pages": [
-          "changelog",
-          "upcoming"
-        ]
       }
     ]
   },
