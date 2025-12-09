@@ -29,17 +29,58 @@
           "required": true,
           "content": {
             "application/json": {
+              "examples": {
+                "option-1-using-image-url": {
+                  "summary": "Option 1 (using image URL)",
+                  "description": "Generate alt text using a publicly accessible image URL",
+                  "value": {
+                    "image_url": "https://example.com/image.jpg",
+                    "user_id": "user@example.com",
+                    "blog_title": "Healthy Eating Guide",
+                    "seo_keywords": "healthy, food, nutrition, apples",
+                    "language_code": "en"
+                  }
+                },
+                "option-2-using-image-file": {
+                  "summary": "Option 2 (using image file)",
+                  "description": "Generate alt text using a base64 encoded image file in data URI format",
+                  "value": {
+                    "image_file": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=",
+                    "user_id": "user123",
+                    "blog_title": "Beautiful Sunset Over Mountains",
+                    "seo_keywords": "sunset, mountains, nature, landscape, photography",
+                    "language_code": "en"
+                  }
+                }
+              },
               "schema": {
                 "type": "object",
                 "required": [
-                  "image_url",
                   "user_id"
+                ],
+                "anyOf": [
+                  {
+                    "required": [
+                      "image_url"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "image_file"
+                    ]
+                  }
                 ],
                 "properties": {
                   "image_url": {
                     "type": "string",
-                    "description": "Publicly accessible URL of the image to generate alt text for",
+                    "description": "Publicly accessible URL of the image to generate alt text for. Either `image_url` or `image_file` must be provided.",
                     "format": "uri"
+                  },
+                  "image_file": {
+                    "type": "string",
+                    "description": "Image file in data URI format with base64 encoded image data. Format: `data:image/[type];base64,[base64-data]`. Either `image_url` or `image_file` must be provided.",
+                    "format": "data-uri",
+                    "example": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                   },
                   "user_id": {
                     "type": "string",

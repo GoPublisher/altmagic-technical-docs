@@ -13,15 +13,19 @@ The Alt Magic API allows you to make a `POST` request to generate alt text for a
 ## How It Works
 
 1. **Create an API key** in your [Alt Magic dashboard](https://app.altmagic.pro)
-2. **Share your image** with a publicly accessible URL
+2. **Share your image** either by:
+   - Providing a publicly accessible URL (`image_url`), or
+   - Uploading the image file directly as base64 data URI (`image_file`)
 3. **Make a POST request** to your personal Alt Magic endpoint
 4. **Track the response** and get your generated alt text
 
 ## Setting Up Parameters
 
 ### Required Parameters
-- `image_url` - Publicly accessible URL of the image
 - `user_id` - Your unique identifier (email address)
+- Either `image_url` OR `image_file` - You must provide one of these:
+  - `image_url` - Publicly accessible URL of the image
+  - `image_file` - Image file in data URI format with base64 encoded image data (format: `data:image/[type];base64,[base64-data]`)
 
 ### Optional Parameters
 - `blog_title` - Context for better alt text generation
@@ -102,7 +106,9 @@ Each API request returns immediate results with your generated alt text.
 }
 ```
 
-## Complete API Example
+## Complete API Examples
+
+### Option 1 (using image URL)
 
 ```bash
 curl -X POST "https://api.altmagic.pro/v1/generate-alt-text-api" \
@@ -116,6 +122,25 @@ curl -X POST "https://api.altmagic.pro/v1/generate-alt-text-api" \
     "user_id": "user@example.com"
   }'
 ```
+
+### Option 2 (using image file)
+
+```bash
+curl -X POST "https://api.altmagic.pro/v1/generate-alt-text-api" \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -d '{
+    "image_file": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=",
+    "user_id": "user123",
+    "blog_title": "Beautiful Sunset Over Mountains",
+    "seo_keywords": "sunset, mountains, nature, landscape, photography",
+    "language_code": "en"
+  }'
+```
+
+<Tip>
+When using `image_file`, ensure your base64 data URI follows the format: `data:image/[type];base64,[base64-data]`. Supported image types include JPEG, PNG, GIF, and WebP.
+</Tip>
 
 ## Next Steps
 
